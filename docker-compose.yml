@@ -1,0 +1,26 @@
+version: "2.2"
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: restaurant
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    environment:
+      DATABASE_URL: "postgresql://postgres:password@db:5432/restaurant?schema=public"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    # Optional: Run migrations on startup
+    # command: sh -c "npx prisma migrate deploy && npm start"
+
+volumes:
+  postgres_data:
