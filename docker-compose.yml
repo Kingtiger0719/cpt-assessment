@@ -16,7 +16,7 @@ services:
     environment:
       DATABASE_URL: "postgresql://postgres:password@db:5432/restaurant?schema=public"
     ports:
-      - "5000:5000"
+      - "3001:3001"
     depends_on:
       - db
     # Optional: Run migrations on startup
